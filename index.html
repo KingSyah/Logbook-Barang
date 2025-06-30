@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logbook Barang Laboratorium</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">
+                    <i class="fas fa-flask"></i>
+                    Lab Logbook
+                </h1>
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav" id="navigation">
+        <div class="container">
+            <ul class="nav-list">
+                <li><a href="#dashboard" class="nav-link active" data-section="dashboard">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a></li>
+                <li><a href="#barang-masuk" class="nav-link" data-section="barang-masuk">
+                    <i class="fas fa-arrow-down"></i> Barang Masuk
+                </a></li>
+                <li><a href="#barang-keluar" class="nav-link" data-section="barang-keluar">
+                    <i class="fas fa-arrow-up"></i> Barang Keluar
+                </a></li>
+                <li><a href="#peminjaman" class="nav-link" data-section="peminjaman">
+                    <i class="fas fa-exchange-alt"></i> Peminjaman
+                </a></li>
+                <li><a href="#perbaikan" class="nav-link" data-section="perbaikan">
+                    <i class="fas fa-tools"></i> Perbaikan/Rusak
+                </a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="section active">
+                <div class="section-header">
+                    <h2><i class="fas fa-tachometer-alt"></i> Dashboard</h2>
+                    <div class="header-actions">
+                        <div class="action-group">
+                            <button class="btn btn-secondary" id="importBtn">
+                                <i class="fas fa-upload"></i> Import
+                            </button>
+                            <button class="btn btn-primary" id="exportBtn">
+                                <i class="fas fa-download"></i> Export
+                            </button>
+                        </div>
+                        <div class="action-group">
+                            <button class="btn btn-warning" id="restoreBtn" title="Kembalikan data dari backup terakhir">
+                                <i class="fas fa-undo"></i> Restore
+                            </button>
+                            <button class="btn btn-danger" id="clearBtn" title="Hapus semua data">
+                                <i class="fas fa-trash-alt"></i> Clear All
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-boxes"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="totalBarang">0</h3>
+                            <p>Total Barang</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-arrow-down text-success"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="barangMasukCount">0</h3>
+                            <p>Barang Masuk</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-arrow-up text-warning"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="barangKeluarCount">0</h3>
+                            <p>Barang Keluar</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-exchange-alt text-info"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="peminjamanCount">0</h3>
+                            <p>Dipinjam</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-tools text-danger"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="perbaikanCount">0</h3>
+                            <p>Perlu Perbaikan</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recent-activities">
+                    <h3>Aktivitas Terbaru</h3>
+                    <div class="activity-list" id="recentActivities">
+                        <!-- Activities will be populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Barang Masuk Section -->
+            <section id="barang-masuk" class="section">
+                <div class="section-header">
+                    <h2><i class="fas fa-arrow-down"></i> Barang Masuk</h2>
+                    <button class="btn btn-primary" id="addBarangMasukBtn">
+                        <i class="fas fa-plus"></i> Tambah Barang
+                    </button>
+                </div>
+                
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Nama Barang</th>
+                                <th>Kategori</th>
+                                <th>Jumlah</th>
+                                <th>Kondisi</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="barangMasukTable">
+                            <!-- Data will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Barang Keluar Section -->
+            <section id="barang-keluar" class="section">
+                <div class="section-header">
+                    <h2><i class="fas fa-arrow-up"></i> Barang Keluar</h2>
+                    <button class="btn btn-primary" id="addBarangKeluarBtn">
+                        <i class="fas fa-plus"></i> Tambah Barang Keluar
+                    </button>
+                </div>
+                
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Nama Barang</th>
+                                <th>Jumlah</th>
+                                <th>Tujuan</th>
+                                <th>PIC</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="barangKeluarTable">
+                            <!-- Data will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Peminjaman Section -->
+            <section id="peminjaman" class="section">
+                <div class="section-header">
+                    <h2><i class="fas fa-exchange-alt"></i> Peminjaman Barang</h2>
+                    <button class="btn btn-primary" id="addPeminjamanBtn">
+                        <i class="fas fa-plus"></i> Tambah Peminjaman
+                    </button>
+                </div>
+                
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Tanggal Pinjam</th>
+                                <th>Nama Barang</th>
+                                <th>Peminjam</th>
+                                <th>Jumlah</th>
+                                <th>Jatuh Tempo/Kembali</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="peminjamanTable">
+                            <!-- Data will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Perbaikan Section -->
+            <section id="perbaikan" class="section">
+                <div class="section-header">
+                    <h2><i class="fas fa-tools"></i> Perbaikan/Rusak</h2>
+                    <button class="btn btn-primary" id="addPerbaikanBtn">
+                        <i class="fas fa-plus"></i> Tambah Laporan
+                    </button>
+                </div>
+                
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Nama Barang</th>
+                                <th>Kondisi</th>
+                                <th>Deskripsi</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="perbaikanTable">
+                            <!-- Data will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modal Container -->
+    <div id="modalContainer"></div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p id="copyright">© 2025 Laboratorium Teknik Elektro dan Komputer</p>
+                <p class="footer-subtitle">Lab Logbook Management System</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Hidden File Input for Import -->
+    <input type="file" id="fileInput" accept=".json" style="display: none;">
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>

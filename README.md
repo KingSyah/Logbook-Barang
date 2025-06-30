@@ -2,6 +2,8 @@
 
 Aplikasi web sederhana untuk mengelola logbook barang laboratorium dengan fitur pencatatan barang masuk, keluar, peminjaman, dan perbaikan/rusak.
 
+🔗 **Link:** [https://kingsyah.github.io/Logbook-Barang/](https://kingsyah.github.io/Logbook-Barang/)
+
 ## 🚀 Fitur Utama
 
 ### 📊 Dashboard
